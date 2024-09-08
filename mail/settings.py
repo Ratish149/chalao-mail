@@ -35,10 +35,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+
 # Root URL configuration
+
 ROOT_URLCONF = "mail.urls"
 
 # Templates configuration for rendering admin and other pages
