@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zk*n-4)a@_i)5twuai=67gc4#2mm%$1$%&2#$%s6^tsad0#m)!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -126,6 +128,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'info@chalao.rentals'
 EMAIL_HOST_PASSWORD = 'F!R0J@Ch@l@uTwentyTwentyFour'
 DEFAULT_FROM_EMAIL = 'info@chalao.rentals'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
