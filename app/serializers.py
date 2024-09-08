@@ -3,8 +3,7 @@
 from rest_framework import serializers
 from .models import Mail
 class EmailSerializer(serializers.Serializer):
-    class Meta:
-        model = Mail
-        fields = '__all__'
+    full_name = serializers.CharField(max_length=100)
+    email = serializers.EmailField()
 
 
