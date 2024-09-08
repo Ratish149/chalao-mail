@@ -4,13 +4,14 @@ from django.conf import settings
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .serializers import EmailSerializer
+from .models import Mail
 # Create your views here.
 
 class SendEmailView(generics.CreateAPIView):
     serializer_class = EmailSerializer
 
     def perform_create(self, serializer):
-        
+        full_name=serializer.validated_data['full_name']
         email=serializer.validated_data['email']
         message=render_to_string('email.html')
         try:
@@ -22,6 +23,9 @@ class SendEmailView(generics.CreateAPIView):
                 recipient_list=[email],
                 fail_silently=False
             )
+            mail=Mail.objects.create(full_name=full_name,email=email)
+            mail.save()
+
             return Response({"message": "Email sent successfully"}, status=status.HTTP_201_CREATED)
 
         except Exception as e:

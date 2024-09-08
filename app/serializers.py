@@ -1,6 +1,10 @@
 # serializers.py
 
 from rest_framework import serializers
-
+from .models import Mail
 class EmailSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    class Meta:
+        model = Mail
+        fields = '__all__'
+
+
