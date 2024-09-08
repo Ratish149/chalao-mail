@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-zk*n-4)a@_i)5twuai=67gc4#2mm%$1$%&2#$%s6^tsad0#m)!"
 DEBUG = True
 
+# For development, allowing all hosts
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -21,12 +22,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "app",
     "rest_framework",
-    "corsheaders",  # Make sure corsheaders is included
+    "corsheaders",  # CORS headers application
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "corsheaders.middleware.CorsMiddleware",  # Add CORS middleware here
+    "corsheaders.middleware.CorsMiddleware",  # CORS middleware
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -38,7 +39,7 @@ MIDDLEWARE = [
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins for development
-# Alternatively, specify allowed origins:
+# For production, use:
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:3000",
 #     "https://your-frontend-domain.com",
@@ -107,8 +108,6 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = "static/"
 
 # Default primary key field type
