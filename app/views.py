@@ -12,9 +12,9 @@ class SendEmailView(generics.ListCreateAPIView):
     serializer_class = EmailSerializer
 
     def create(self, request, *args, **kwargs):
-        data=request.data  
-        full_name = data.get['full_name']
-        email = data.get['email']
+        data = request.data
+        full_name = data.get('full_name')
+        email = data.get('email')
         message = render_to_string('email.html')
         
         try:
