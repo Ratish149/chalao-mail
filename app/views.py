@@ -27,7 +27,6 @@ class SendEmailView(generics.ListCreateAPIView):
                 fail_silently=False
             )
             mail = Mail.objects.create(full_name=full_name, email=email)
-            mail.save()
 
             return Response({"message": "Email sent successfully"}, status=status.HTTP_201_CREATED)
 

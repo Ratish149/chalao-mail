@@ -6,11 +6,11 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security settings
-SECRET_KEY = "django-insecure-zk*n-4)a@_i)5twuai=67gc4#2mm%$1$%&2#$%s6^tsad0#m)!"
-DEBUG = True
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-zk*n-4)a@_i)5twuai=67gc4#2mm%$1$%&2#$%s6^tsad0#m)!")
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-# For development, allowing all hosts
-ALLOWED_HOSTS = ["*"]
+# Restrict allowed hosts for security
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,chalao.rentals").split(",")
 
 # Application definition
 INSTALLED_APPS = [
@@ -37,8 +37,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS settings - restrict to specific origins for security
+CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL", "False").lower() == "true"
+CORS_ALLOWED_ORIGINS = [
+    "https://chalao.rentals",
+    "https://www.chalao.rentals",
+] + (["http://localhost:3000", "http://127.0.0.1:3000"] if DEBUG else [])
 # Root URL configuration
 
 ROOT_URLCONF = "mail.urls"
@@ -73,12 +77,12 @@ DATABASES = {
 
 # Email settings for sending emails
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "mail.privateemail.com"
+EMAIL_HOST = os.getenv("EMAIL_HOST", "mail.privateemail.com")
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "info@chalao.rentals"
-EMAIL_HOST_PASSWORD = "F!R0J@Ch@l@uTwentyTwentyFour"
-DEFAULT_FROM_EMAIL = "info@chalao.rentals"
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "info@chalao.rentals")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "info@chalao.rentals")
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
